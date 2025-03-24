@@ -1,4 +1,9 @@
+import Sidebar from "@/components/sidebar";
 
 export default function Page() {
-  return 
+  return (
+    <div>
+      <Sidebar />
+    </div>
+  )
 }

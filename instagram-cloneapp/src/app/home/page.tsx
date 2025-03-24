@@ -15,7 +15,7 @@ export default async function Home() {
           {" "}
           <Sidebar />
           <div className="container mx-auto">
-            <div className="p-4 ml-[300px]">
+            <div className="p-4 ml-[300px] max-md:ml-[100px]">
             {data.posts.length > 0 ? (
             data.posts.map((post: any) => (
               <div key={post.id} className="p-4 border-b border-gray-300">
