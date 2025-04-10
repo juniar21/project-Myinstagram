@@ -3,13 +3,11 @@
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import axios from "axios";
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
 // import Link from "next/link";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-import { signIn } from "next-auth/react";
-import axios from "@/lib/axios";
-
 
 const registerSchema = yup.object().shape({
   email: yup.string().required("email is required"),
@@ -21,29 +19,21 @@ interface IRegisterForm {
   password: string;
 }
 
-export default function Llogin() {
+export default function Modal() {
   const initialValue: IRegisterForm = { email: "", password: "" };
   const addLogin = async (
     values: IRegisterForm,
     action: FormikHelpers<IRegisterForm>
   ) => {
     try {
-      const { data } = await axios.post("/auth/login", values);
-      const user = data.data;
-
-      await signIn("credentials", {
-        redirectTo: "/",
-        id: user.id,
-        email: user.email,
-        username: user.username,
-        fullname: user.fullname,
-        avatar: user.avatar ?? "",
-        accessToken: data.access_token,
-      });
+      await axios.post(
+        "https://prizedgirl-us.backendless.app/api/users/register",
+        values
+      );
       action.resetForm();
-      toast.success("Login Succsess !");
+      toast.success("Register Succsess !");
     } catch (error: any) {
-      toast.error(error.response?.data?.message);
+      toast.error(error.response?.data?.message || "Register Failed!");
     }
   };
   return (
@@ -56,20 +46,11 @@ export default function Llogin() {
         {(props: FormikProps<IRegisterForm>) => {
           const { errors, touched } = props;
           return (
-            <Form>
-              <div className="mt-[100px]">
+            <Form className="fixed inset-0">
+              <div className="fixed inset-0">
                 <div className="container mx-auto">
                   <div className="p-4">
                     <div className="grid max-sm:grid-cols-1 grid-cols-2 max-sm:justify-items-center">
-                      <div className="justify-items-end max-sm:hidden">
-                        <Image
-                          src={"/register.jpg"}
-                          width={400}
-                          height={400}
-                          alt="registerloginapp"
-                          priority={false}
-                        />
-                      </div>
                       <div className="flex flex-col p-5 object-center justify-start gap-7 md:w-[400px] max-sm:w-[350px] mt-[50px]">
                         <div className=" flex flex-col p-9 max-md:p-4 border border-gray-400 rounded-sm items-center gap-5 shadow-2xs">
                           <Image
@@ -77,7 +58,6 @@ export default function Llogin() {
                             width={200}
                             height={200}
                             alt="logoInstagram"
-                            priority={false}
                           />
                           <Field
                             name="email"

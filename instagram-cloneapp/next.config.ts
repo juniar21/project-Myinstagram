@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "choke-clutch.com" },
       { protocol: "https", hostname: "akcdn.detik.net.id" },
       { protocol: "https", hostname: "th.bing.com" },
+      { protocol: "http", hostname: "localhost" },
+      { protocol: "https", hostname: "res.cloudinary.com" } 
     ],
   },
 };

@@ -29,15 +29,13 @@ export default function Lregiters() {
     username: "",
     fullname: "",
   };
-  const addRegister = async (
+  const OnRegister = async (
     values: IRegisterForm,
     action: FormikHelpers<IRegisterForm>
   ) => {
     try {
-      await axios.post(
-        "/users",
-        values
-      );
+      const {data} = await axios.post("/auth",values)
+      console.log(data);
       action.resetForm();
       toast.success("Register Succsess !");
     } catch (error: any) {
@@ -53,7 +51,7 @@ export default function Lregiters() {
             <Formik
               initialValues={initialValue}
               validationSchema={registerSchema}
-              onSubmit={addRegister}
+              onSubmit={OnRegister}
             >
               {(props: FormikProps<IRegisterForm>) => {
                 const { errors, touched } = props;

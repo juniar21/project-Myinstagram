@@ -9,10 +9,15 @@ export interface IRegister {
   export interface IUser {
     username : string;
     email : string;
+    avatar:string;
   }
 
-  export interface IInstagram {
+  export interface IPost {
+    id:number;
     imageUrl: string;
     caption: string;
-    Iuser: IUser;
+    createdAt: string
+    user: IUser;
+    liked: boolean;
+    likeCount: number;
   }
